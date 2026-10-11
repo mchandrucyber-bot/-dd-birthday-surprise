@@ -3,438 +3,272 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffe5f1">
 <title>Happy Birthday DD 💜</title>
 
 <style>
-:root {
-  --pink: #ff6fae;
-  --light: #fff0f7;
-  --purple: #c9a7ff;
-  --text: #793b61;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Trebuchet MS",Arial,sans-serif;
+  text-align:center;
+  color:#793b61;
+  background:linear-gradient(135deg,#ffe5f1,#f3e7ff,#fff1d8);
+  min-height:100vh;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  background: linear-gradient(135deg, #ffe5f1, #f3e7ff, #fff1d8);
-  color: var(--text);
-  text-align: center;
-  min-height: 100vh;
-  overflow-x: hidden;
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:30px 16px 100px;
+  align-items:center;
+  justify-content:center;
 }
-
-.screen {
-  display: none;
-  min-height: 100vh;
-  padding: 35px 18px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  animation: appear .65s ease;
+.screen.active{display:flex;animation:appear .6s ease}
+@keyframes appear{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-.screen.active { display: flex; }
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+.card{
+  width:100%;
+  max-width:500px;
+  padding:24px 18px;
+  border:1px solid #ffffffc9;
+  border-radius:28px;
+  background:#ffffffb8;
+  box-shadow:0 15px 40px #ad78a433;
 }
-
-h1 { font-size: clamp(2rem, 8vw, 3.2rem); }
-h2 { font-size: 1.8rem; }
-p { line-height: 1.8; max-width: 460px; }
-
-button {
-  border: none;
-  border-radius: 30px;
-  padding: 14px 24px;
-  margin: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  background: linear-gradient(135deg, #ff70ad, #c58aff);
-  box-shadow: 0 7px 0 #c66da5, 0 12px 24px #dd83b544;
-  cursor: pointer;
-  transition: transform .2s;
+h1{font-size:clamp(2rem,8vw,3rem)}
+h2{font-size:1.7rem}
+p{line-height:1.8}
+button{
+  border:0;
+  border-radius:30px;
+  padding:13px 20px;
+  margin:8px;
+  color:white;
+  font-size:1rem;
+  font-weight:bold;
+  background:linear-gradient(135deg,#ff70ad,#c58aff);
+  box-shadow:0 5px 0 #c66da5;
+  cursor:pointer;
 }
-
-button:active { transform: translateY(4px); }
-
-button:focus-visible {
-  outline: 3px solid #793b61;
-  outline-offset: 4px;
+.emoji{
+  display:inline-block;
+  font-size:100px;
+  animation:bounce 2s infinite;
 }
-
-.card {
-  width: min(100%, 440px);
-  padding: 24px;
-  border: 1px solid #ffffffc9;
-  border-radius: 28px;
-  background: #ffffffa6;
-  box-shadow: 0 15px 40px #ad78a42b;
-  backdrop-filter: blur(8px);
+@keyframes bounce{
+  50%{transform:translateY(-12px) rotate(5deg)}
 }
-
-.scene {
-  perspective: 800px;
-  margin: 20px auto;
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin:20px auto;
 }
-
-.heart {
-  display: inline-block;
-  font-size: 110px;
-  filter: drop-shadow(0 15px 10px #e7549a55);
-  animation: heartSpin 5s linear infinite, heartbeat 1.3s infinite;
-  transform-style: preserve-3d;
+.gallery img{
+  display:block;
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  border:5px solid white;
+  border-radius:17px;
+  box-shadow:0 5px 15px #ad78a433;
+  background:#fff0f7;
 }
-
-@keyframes heartSpin {
-  0% { transform: rotateY(0deg) rotateX(5deg); }
-  100% { transform: rotateY(360deg) rotateX(5deg); }
+.music-card{
+  margin:16px auto;
+  padding:16px;
+  background:#fff9;
+  border-radius:18px;
+  max-width:420px;
 }
-
-@keyframes heartbeat {
-  0%, 100% { scale: 1; }
-  50% { scale: 1.09; }
+audio{width:100%;max-width:100%}
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff0f7ed;
+  padding:8px 3px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  z-index:5;
 }
-
-.teddy {
-  display: inline-block;
-  font-size: 115px;
-  filter: drop-shadow(0 15px 10px #c18ca755);
-  animation: teddy 2s ease-in-out infinite;
+.nav button{font-size:12px;padding:10px;margin:3px}
+#giftMessage{display:none;animation:appear .6s}
+#particles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:10;
 }
-
-@keyframes teddy {
-  0%, 100% { transform: rotate(-5deg) translateY(0); }
-  50% { transform: rotate(5deg) translateY(-13px); }
-}
-
-.cake {
-  font-size: 115px;
-  display: inline-block;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 12px 12px #cc8b9a66);
-  animation: cakeFloat 2.5s ease-in-out infinite;
-}
-
-@keyframes cakeFloat {
-  50% { transform: translateY(-12px) rotateY(8deg); }
-}
-
-.gift-scene {
-  perspective: 700px;
-  margin: 28px;
-}
-
-.gift {
-  position: relative;
-  width: 155px;
-  height: 120px;
-  margin: auto;
-  transform-style: preserve-3d;
-  transition: transform .8s;
-}
-
-.gift-lid {
-  position: absolute;
-  top: 0;
-  left: -8px;
-  width: 171px;
-  height: 35px;
-  background: #ff78ad;
-  border: 3px solid #f15a98;
-  border-radius: 7px;
-  transform-origin: left center;
-  transition: transform .8s;
-  z-index: 2;
-}
-
-.gift-box {
-  position: absolute;
-  bottom: 0;
-  width: 155px;
-  height: 92px;
-  background: linear-gradient(90deg, #ff83b8, #ffa6cb);
-  border: 3px solid #f15a98;
-  border-radius: 5px 5px 12px 12px;
-}
-
-.gift-box::before, .gift-lid::before {
-  content: "";
-  position: absolute;
-  width: 27px;
-  background: #fff0a9;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  bottom: 0;
-}
-
-.gift.open .gift-lid {
-  transform: translate(-25px, -45px) rotate(-32deg);
-}
-
-.gift.open .gift-box {
-  animation: giftGlow .8s ease-in-out infinite alternate;
-}
-
-@keyframes giftGlow {
-  to { box-shadow: 0 0 35px #ff76bb; }
-}
-
-#surprise {
-  display: none;
-  font-size: 1.15rem;
-  animation: appear .6s;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  width: min(100%, 450px);
-  margin: 18px auto;
-}
-
-.gallery img, .gallery video {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border: 5px solid white;
-  border-radius: 17px;
-  box-shadow: 0 5px 15px #ad78a433;
-}
-
-audio, video { max-width: 100%; }
-
-.music-card {
-  width: min(100%, 420px);
-  margin: 15px auto;
-  padding: 16px;
-  background: #fff9;
-  border-radius: 18px;
-}
-
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 18px;
-}
-
-.nav button {
-  padding: 10px 14px;
-  font-size: .88rem;
-}
-
-#particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 10;
-}
-
-.particle {
-  position: absolute;
-  bottom: -35px;
-  animation: floatUp linear forwards;
-}
-
-@keyframes floatUp {
-  to { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
-}
-
-.small { font-size: .85rem; opacity: .8; }
 </style>
 </head>
 
 <body>
 <div id="particles"></div>
 
-<!-- SCREEN 1 -->
+<!-- PAGE 1: WELCOME -->
 <section class="screen active" id="s1">
-  <div class="card">
-    <p>🎀 A little surprise made just for you 🎀</p>
-    <div class="scene">
-      <div class="heart">💗</div>
-    </div>
-    <h1>Happy Birthday DD!</h1>
-    <p>A little world of pink, happiness, and beautiful memories awaits you. ✨</p>
-    <button onclick="go(2)">Open Your Surprise 💌</button>
-  </div>
+<div class="card">
+<p>🎀 A little surprise made just for you 🎀</p>
+<div class="emoji">💗</div>
+<h1>Happy Birthday DD!</h1>
+<p>A little world of pink, happiness, and beautiful memories awaits you. ✨</p>
+<button onclick="go(2)">Open Your Surprise 💌</button>
+</div>
 </section>
 
-<!-- SCREEN 2 -->
+<!-- PAGE 2: BIRTHDAY WISH -->
 <section class="screen" id="s2">
-  <div class="card">
-    <div class="scene"><div class="teddy">🧸</div></div>
-    <h1>For You, DD 💞</h1>
-    <p>
-      Wishing you a birthday filled with laughter, happiness,
-      lovely memories, and countless reasons to smile.
-      May this new year bring you beautiful surprises
-      and wonderful adventures. 🌸
-    </p>
-    <p>Sending you the biggest virtual teddy hug! 🧸💗</p>
-    <button onclick="go(3)">Next Surprise 🎂</button>
-  </div>
+<div class="card">
+<div class="emoji">🧸</div>
+<h1>For You, DD 💞</h1>
+<p>
+Wishing you a birthday filled with laughter, happiness,
+lovely memories, and countless reasons to smile.
+May this new year bring you beautiful surprises
+and wonderful adventures! 🌸
+</p>
+<p>Sending you the biggest virtual teddy hug! 🧸💗</p>
+<button onclick="go(3)">Next Surprise 🎂</button>
+</div>
 </section>
 
-<!-- SCREEN 3 -->
+<!-- PAGE 3: MAKE A WISH -->
 <section class="screen" id="s3">
-  <div class="card">
-    <h1>Make a Wish! ✨</h1>
-    <div class="scene"><div class="cake">🎂</div></div>
-    <p>Close your eyes, make a birthday wish, and tap below!</p>
-    <button onclick="makeWish()">My Wish Is Made 🕯️</button>
-    <p id="wishText" aria-live="polite"></p>
-    <button onclick="go(4)">Find Your Gift 🎁</button>
-  </div>
+<div class="card">
+<h1>Make a Wish! ✨</h1>
+<div class="emoji">🎂</div>
+<p>Close your eyes, make a birthday wish, and tap below!</p>
+<button onclick="wish()">My Wish Is Made 🕯️</button>
+<p id="wishText" aria-live="polite"></p>
+<button onclick="go(4)">Find Your Gift 🎁</button>
+</div>
 </section>
 
-<!-- SCREEN 4 -->
+<!-- PAGE 4: GIFT SURPRISE -->
 <section class="screen" id="s4">
-  <div class="card">
-    <h1>A Little Gift for DD 🎁</h1>
-    <p>There's something special waiting inside...</p>
+<div class="card">
+<h1>A Little Gift for DD 🎁</h1>
+<p>There's something special waiting inside...</p>
+<div class="emoji" onclick="openGift()">🎁</div>
+<br>
+<button onclick="openGift()">Open My Gift 💝</button>
 
-    <div class="gift-scene">
-      <div class="gift" id="gift">
-        <div class="gift-lid"></div>
-        <div class="gift-box"></div>
-      </div>
-    </div>
-
-    <button id="openGift" onclick="openGift()">Open My Gift 💝</button>
-
-    <div id="surprise" aria-live="polite">
-      <h2>Surprise! 💖</h2>
-      <p>
-        Your gift is a little reminder that you deserve
-        happiness, kindness, and wonderful memories.
-        Keep smiling and keep shining, DD! 🌷I am always here for you supporting you!✨
-      </p>
-      <div style="font-size:48px">💗🌸💗</div>
-    </div>
-
-    <button onclick="go(5)">See Our Memories 📸</button>
-  </div>
-</section>
-
-<!-- SCREEN 5 -->
-<section class="screen" id="s5">
-  <div class="card">
-    <h1>Little Moments, Big Memories 💕</h1>
-    <p>Some lovely memories to make this birthday extra special.</p>
-
-    <!-- Replace these example filenames with your existing photo filenames. -->
-    <div class="gallery">
-      <img src="photo1.jpg" alt="Birthday memory 1"
-           onerror="this.style.display='none'">
-      <img src="photo2.jpg" alt="Birthday memory 2"
-           onerror="this.style.display='none'">
-      <img src="photo3.jpg" alt="Birthday memory 3"
-           onerror="this.style.display='none'">
-      <img src="photo4.jpg" alt="Birthday memory 4"
-           onerror="this.style.display='none'">
-    </div>
-
-    <div class="music-card">
-      <h3>🎵 A Song for You</h3>
-      <!-- Replace birthday-song.mp3 with your existing music filename. -->
-      <audio controls loop>
-        <source src="birthday-song.mp3" type="audio/mpeg">
-        Your browser does not support audio.
-      </audio>
-    </div>
-
-    <div class="music-card">
-      <h3>🎬 A Special Video</h3>
-      <!-- Replace birthday-video.mp4 with your existing video filename. -->
-      <video controls playsinline preload="metadata">
-        <source src="birthday-video.mp4" type="video/mp4">
-        Your browser does not support video.
-      </video>
-    </div>
-
-    <h2>Once Again, Happy Birthday DD! 🎂</h2>
-    <p>May your days be filled with sunshine, smiles, and a little bit of magic. 💗</p>
-    <button onclick="celebrate()">One Last Surprise 🎉</button>
-    <button onclick="go(1)">Replay From Beginning 💌</button>
-  </div>
-</section>
-
-<div class="nav" aria-label="Birthday pages">
-  <button onclick="go(1)">🏠 Home</button>
-  <button onclick="go(2)">🧸 Teddy</button>
-  <button onclick="go(3)">🎂 Cake</button>
-  <button onclick="go(4)">🎁 Gift</button>
-  <button onclick="go(5)">📸 Memories</button>
+<div id="giftMessage" aria-live="polite">
+<h2>Surprise! 💖</h2>
+<p>
+You deserve happiness, kindness, and wonderful memories.
+Keep smiling and keep shining, DD! 🌷
+Sending you lots of birthday love and good wishes! ✨
+</p>
+<div class="emoji">💗🌸💗</div>
 </div>
 
+<button onclick="go(5)">See Our Memories 📸</button>
+</div>
+</section>
+
+<!-- PAGE 5: FOUR PHOTOS AND MUSIC -->
+<section class="screen" id="s5">
+<div class="card">
+<h1>Little Moments, Big Memories 💕</h1>
+<p>Four lovely memories to make this birthday extra special. 📸</p>
+
+<div class="gallery">
+<img src="assets/photo1.jpg" alt="Birthday memory 1" loading="lazy">
+<img src="assets/photo2.jpg" alt="Birthday memory 2" loading="lazy">
+<img src="assets/photo3.jpg" alt="Birthday memory 3" loading="lazy">
+<img src="assets/photo4.jpg" alt="Birthday memory 4" loading="lazy">
+</div>
+
+<p>If a photo doesn't appear, check that its filename matches the file in your assets folder.</p>
+
+<div class="music-card">
+<h3>🎵 A Song for You</h3>
+<audio controls loop preload="metadata">
+<source src="assets/music.mp3" type="audio/mpeg">
+Your browser does not support audio.
+</audio>
+<p>Tap Play to start your birthday song! 🎶💗</p>
+</div>
+
+<div class="music-card">
+<h3>🎬 A Special Video</h3>
+<p>Your birthday video can be added here when you upload one to your assets folder.</p>
+</div>
+
+<h2>Once Again, Happy Birthday DD! 🎂</h2>
+<p>May your days be filled with sunshine, smiles, and a little bit of magic. 💗</p>
+
+<button onclick="celebrate()">One Last Surprise 🎉</button>
+<button onclick="go(1)">Replay From Beginning 💌</button>
+</div>
+</section>
+
+<!-- NAVIGATION -->
+<nav class="nav" aria-label="Birthday pages">
+<button onclick="go(1)">🏠 Home</button>
+<button onclick="go(2)">🧸 Teddy</button>
+<button onclick="go(3)">🎂 Cake</button>
+<button onclick="go(4)">🎁 Gift</button>
+<button onclick="go(5)">📸 Memories</button>
+</nav>
+
 <script>
-function go(number) {
-  document.querySelectorAll(".screen").forEach(screen => {
+function go(n){
+  document.querySelectorAll(".screen").forEach(function(screen){
     screen.classList.remove("active");
   });
-
-  document.getElementById("s" + number).classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
-  burst(number === 3 ? "💗" : "✨", 5);
+  document.getElementById("s"+n).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(n===5) checkPhotos();
 }
 
-function burst(symbol = "💗", count = 18) {
-  const container = document.getElementById("particles");
+function wish(){
+  document.getElementById("wishText").textContent =
+    "May your beautiful wish come true! 💖✨";
+  celebrate();
+}
 
-  for (let i = 0; i < count; i++) {
-    const item = document.createElement("span");
-    item.className = "particle";
-    item.textContent = symbol;
-    item.style.left = Math.random() * 100 + "%";
-    item.style.fontSize = (14 + Math.random() * 22) + "px";
-    item.style.animationDuration = (3 + Math.random() * 4) + "s";
+function openGift(){
+  document.getElementById("giftMessage").style.display="block";
+  celebrate();
+}
+
+function celebrate(){
+  var container=document.getElementById("particles");
+  var symbols=["💗","✨","🎉","🌸","💕"];
+
+  for(var i=0;i<25;i++){
+    var item=document.createElement("span");
+    item.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    item.style.position="absolute";
+    item.style.left=Math.random()*100+"%";
+    item.style.top=Math.random()*85+"%";
+    item.style.fontSize=(18+Math.random()*20)+"px";
     container.appendChild(item);
 
-    item.addEventListener("animationend", () => item.remove());
+    (function(el){
+      setTimeout(function(){el.remove()},2200);
+    })(item);
   }
 }
 
-function makeWish() {
-  document.getElementById("wishText").textContent =
-    "May your beautiful wish come true! 💖✨";
-  burst("✨", 30);
+function checkPhotos(){
+  document.querySelectorAll(".gallery img").forEach(function(img){
+    img.onerror=function(){
+      img.alt="Photo not found: "+img.src.split("/").pop();
+      img.style.border="3px dashed #ff70ad";
+      img.style.objectFit="contain";
+    };
+  });
 }
-
-function openGift() {
-  const gift = document.getElementById("gift");
-  const message = document.getElementById("surprise");
-  const button = document.getElementById("openGift");
-
-  if (gift.classList.contains("open")) return;
-
-  gift.classList.add("open");
-  message.style.display = "block";
-  button.textContent = "Your Gift Is Open! 💝";
-  burst("💗", 35);
-}
-
-function celebrate() {
-  burst("🎉", 55);
-  setTimeout(() => burst("💗", 35), 500);
-  setTimeout(() => burst("✨", 35), 1000);
-}
-
-setInterval(() => {
-  if (document.hidden) return;
-  burst(Math.random() > 0.5 ? "💗" : "✨", 1);
-}, 1600);
 </script>
 </body>
 </html>
